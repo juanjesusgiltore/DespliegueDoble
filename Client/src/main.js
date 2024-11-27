@@ -1,24 +1,22 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+const body=document.querySelector("body")
+const p=document.createElement("p")
+const p2=p.cloneNode()
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+fetch("http://localhost:3000/posts")
+.then(response=>response.json())
+.then(data=>{
+    p.textContent=JSON.stringify(data)
+})
+.catch(error=>console.log(error))
 
-setupCounter(document.querySelector('#counter'))
+
+fetch("http://localhost:3000/comments")
+.then(response=>response.json())
+.then(data=>{
+
+  p2.textContent=JSON.stringify(data)
+
+})
+.catch(error=>console.log(error))
+
+body.append(p,p2)
